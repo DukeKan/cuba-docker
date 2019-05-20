@@ -14,4 +14,14 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 *.idea
-deploy/*
+deploy/
+modules/core/build/
+modules/global/build/
+modules/web/build/
+
+*.ipr
+*.iws
+reports/*
+modules/*/build/*
+out
+test-run
