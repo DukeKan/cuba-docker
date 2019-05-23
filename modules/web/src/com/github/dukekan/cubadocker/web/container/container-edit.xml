@@ -20,6 +20,7 @@
                 <field property="status"/>
                 <field property="state"/>
                 <field property="image"/>
+                <field property="connectionParams"/>
                 <field property="containerId"/>
                 <field property="imageId"/>
             </column>

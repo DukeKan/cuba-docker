@@ -35,10 +35,19 @@ public class ContainerServiceBean implements ContainerService {
                 container.setNames(dockerContainer.getNames());
                 container.setImage(dockerContainer.getImage());
                 container.setState(dockerContainer.getState());
+                container.setConnectionParams(connection);
                 containers.add(container);
             }
         }
 
         return containers;
+    }
+
+    @Override
+    public void startContainers(Collection<Container> containers) {
+        for (Container container : containers) {
+            DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
+            dockerClient.startContainerCmd(container.getContainerId());
+        }
     }
 }

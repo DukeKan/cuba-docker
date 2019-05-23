@@ -32,12 +32,14 @@
                 <action id="edit"/>
                 <action id="remove"/>
                 <action id="refresh"/>
+                <action id="startContainers"/>
             </actions>
             <columns>
                 <column id="namesString"/>
                 <column id="status"/>
                 <column id="state"/>
                 <column id="image"/>
+                <column id="connectionParams"/>
                 <column id="containerId"/>
                 <column id="imageId"/>
             </columns>
@@ -53,6 +55,7 @@
                         action="containersTable.remove"/>
                 <button id="refreshBtn"
                         action="containersTable.refresh"/>
+                <button id="startContainersBtn" action="containersTable.startContainers"/>
             </buttonsPanel>
         </table>
     </layout>

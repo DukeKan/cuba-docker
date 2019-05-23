@@ -10,4 +10,6 @@ public interface ContainerService {
     String NAME = "cubadocker_ContainerService";
 
     Collection<Container> getContainers(Collection<ConnectionParams> connections);
+
+    void startContainers(Collection<Container> containers);
 }

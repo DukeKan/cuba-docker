@@ -4,6 +4,8 @@ import com.haulmont.chile.core.annotations.MetaClass;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.BaseUuidEntity;
+import com.haulmont.cuba.core.entity.annotation.Lookup;
+import com.haulmont.cuba.core.entity.annotation.LookupType;
 
 import javax.persistence.ElementCollection;
 import java.util.Arrays;
@@ -31,6 +33,10 @@ public class Container extends BaseUuidEntity {
 
     @ElementCollection
     protected String[] names;
+
+    @MetaProperty
+    @Lookup(type = LookupType.DROPDOWN, actions = {"open"})
+    protected ConnectionParams connectionParams;
 
     public void setState(String state) {
         this.state = state;
@@ -88,5 +94,13 @@ public class Container extends BaseUuidEntity {
     @MetaProperty
     public String getNamesString() {
         return String.join(",", names);
+    }
+
+    public ConnectionParams getConnectionParams() {
+        return connectionParams;
+    }
+
+    public void setConnectionParams(ConnectionParams connectionParams) {
+        this.connectionParams = connectionParams;
     }
 }
