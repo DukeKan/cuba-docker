@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
-
+    <screen id="cubadocker$ConnectionParams.browse"
+            template="com/github/dukekan/cubadocker/web/connectionparams/connection-params-browse.xml"/>
+    <screen id="cubadocker$ConnectionParams.edit"
+            template="com/github/dukekan/cubadocker/web/connectionparams/connection-params-edit.xml"/>
+    <screen id="cubadocker$Container.browse"
+            template="com/github/dukekan/cubadocker/web/container/container-browse.xml"/>
+    <screen id="cubadocker$Container.edit"
+            template="com/github/dukekan/cubadocker/web/container/container-edit.xml"/>
 </screen-config>

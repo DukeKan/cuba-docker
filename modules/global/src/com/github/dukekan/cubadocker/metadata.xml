@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <metadata xmlns="http://schemas.haulmont.com/cuba/metadata.xsd">
-
-    <metadata-model root-package="com.github.dukekan.cubadocker" namespace="cubadocker"/>
-
+    <metadata-model namespace="cubadocker"
+                    root-package="com.github.dukekan.cubadocker">
+        <class>com.github.dukekan.cubadocker.entity.Container</class>
+    </metadata-model>
 </metadata>

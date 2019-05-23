@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.github.dukekan.cubadocker.web.container.ContainerBrowse"
+        focusComponent="containersTable"
+        lookupComponent="containersTable"
+        messagesPack="com.github.dukekan.cubadocker.web.container">
+    <dsContext>
+        <collectionDatasource id="containersDs"
+                         datasourceClass="com.github.dukekan.cubadocker.web.datasources.ContainerCollectionDatasource"
+                         class="com.github.dukekan.cubadocker.entity.Container"
+                         view="_local">
+            <query>
+                <![CDATA[select e from cubadocker$Container e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="containersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="containersTable"
+                datasource="containersDs">
+            <properties include=".*"/>
+        </filter>
+        <table id="containersTable"
+                    multiselect="true"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column id="containerId"/>
+                <column id="imageId"/>
+                <column id="status"/>
+            </columns>
+            <rows datasource="containersDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="containersTable.create"/>
+                <button id="editBtn"
+                        action="containersTable.edit"/>
+                <button id="removeBtn"
+                        action="containersTable.remove"/>
+                <button id="refreshBtn"
+                        action="containersTable.refresh"/>
+            </buttonsPanel>
+        </table>
+    </layout>
+</window>
