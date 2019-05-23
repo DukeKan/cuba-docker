@@ -32,6 +32,9 @@ public class ContainerServiceBean implements ContainerService {
                 container.setStatus(dockerContainer.getStatus());
                 container.setContainerId(dockerContainer.getId());
                 container.setImageId(dockerContainer.getImageId());
+                container.setNames(dockerContainer.getNames());
+                container.setImage(dockerContainer.getImage());
+                container.setState(dockerContainer.getState());
                 containers.add(container);
             }
         }

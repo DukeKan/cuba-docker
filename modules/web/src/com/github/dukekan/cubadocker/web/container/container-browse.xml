@@ -7,9 +7,9 @@
         messagesPack="com.github.dukekan.cubadocker.web.container">
     <dsContext>
         <collectionDatasource id="containersDs"
-                         datasourceClass="com.github.dukekan.cubadocker.web.datasources.ContainerCollectionDatasource"
-                         class="com.github.dukekan.cubadocker.entity.Container"
-                         view="_local">
+                              class="com.github.dukekan.cubadocker.entity.Container"
+                              datasourceClass="com.github.dukekan.cubadocker.web.datasources.ContainerCollectionDatasource"
+                              view="_local">
             <query>
                 <![CDATA[select e from cubadocker$Container e]]>
             </query>
@@ -25,8 +25,8 @@
             <properties include=".*"/>
         </filter>
         <table id="containersTable"
-                    multiselect="true"
-                    width="100%">
+               multiselect="true"
+               width="100%">
             <actions>
                 <action id="create"/>
                 <action id="edit"/>
@@ -34,9 +34,12 @@
                 <action id="refresh"/>
             </actions>
             <columns>
+                <column id="namesString"/>
+                <column id="status"/>
+                <column id="state"/>
+                <column id="image"/>
                 <column id="containerId"/>
                 <column id="imageId"/>
-                <column id="status"/>
             </columns>
             <rows datasource="containersDs"/>
             <rowsCount/>

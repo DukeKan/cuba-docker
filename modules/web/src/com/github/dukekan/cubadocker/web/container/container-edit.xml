@@ -17,11 +17,17 @@
         <fieldGroup id="fieldGroup"
                     datasource="containerDs">
             <column width="250px">
+                <field property="status"/>
+                <field property="state"/>
+                <field property="image"/>
                 <field property="containerId"/>
                 <field property="imageId"/>
-                <field property="status"/>
             </column>
         </fieldGroup>
+        <label value="msg://names"/>
+        <optionsList id="names"
+                     height="75px"
+                     width="350px"/>
         <frame id="windowActions"
                screen="editWindowActions"/>
     </layout>

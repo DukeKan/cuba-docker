@@ -1,9 +1,13 @@
 package com.github.dukekan.cubadocker.entity;
 
 import com.haulmont.chile.core.annotations.MetaClass;
-import com.haulmont.cuba.core.entity.BaseUuidEntity;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.cuba.core.entity.BaseUuidEntity;
+
+import javax.persistence.ElementCollection;
+import java.util.Arrays;
+import java.util.List;
 
 @NamePattern("%s|containerId")
 @MetaClass(name = "cubadocker$Container")
@@ -14,10 +18,36 @@ public class Container extends BaseUuidEntity {
     protected String containerId;
 
     @MetaProperty
+    protected String state;
+
+    @MetaProperty
+    protected String image;
+
+    @MetaProperty
     protected String imageId;
 
     @MetaProperty
     protected String status;
+
+    @ElementCollection
+    protected String[] names;
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
 
     public void setContainerId(String containerId) {
         this.containerId = containerId;
@@ -43,5 +73,20 @@ public class Container extends BaseUuidEntity {
         return status;
     }
 
+    public String[] getNames() {
+        return names;
+    }
 
+    public void setNames(String[] names) {
+        this.names = names;
+    }
+
+    public List<String> getNamesList(){
+        return Arrays.asList(names);
+    }
+
+    @MetaProperty
+    public String getNamesString() {
+        return String.join(",", names);
+    }
 }
