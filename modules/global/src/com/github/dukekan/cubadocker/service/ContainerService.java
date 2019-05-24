@@ -12,4 +12,6 @@ public interface ContainerService {
     Collection<Container> getContainers(Collection<ConnectionParams> connections);
 
     void startContainers(Collection<Container> containers);
+
+    void stopContainers(Collection<Container> containers);
 }

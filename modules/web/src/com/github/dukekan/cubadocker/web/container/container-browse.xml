@@ -55,7 +55,7 @@
                         action="containersTable.remove"/>
                 <button id="refreshBtn"
                         action="containersTable.refresh"/>
-                <button id="startContainersBtn" action="containersTable.startContainers"/>
+                <popupButton id="containerActionsBtn" caption="msg://containerActions"/>
             </buttonsPanel>
         </table>
     </layout>

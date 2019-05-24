@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 public class ContainerEdit extends AbstractEditor<Container> {
     @Inject
-    private OptionsList names;
+    protected OptionsList names;
 
     @Override
     protected void postInit() {

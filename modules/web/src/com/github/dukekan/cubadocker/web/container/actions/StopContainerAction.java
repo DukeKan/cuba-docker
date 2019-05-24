@@ -13,24 +13,24 @@ import java.util.Set;
  * @author d.kuznetsov
  * @version $Id$
  */
-public class StartContainerAction extends ItemTrackingAction {
+public class StopContainerAction extends ItemTrackingAction {
 
     protected ContainerService containerService = AppBeans.get(ContainerService.NAME);
 
-    public StartContainerAction(ListComponent target, String id) {
+    public StopContainerAction(ListComponent target, String id) {
         super(target, id);
     }
 
     @Override
     public void actionPerform(Component component) {
         Set<Container> selectedContainers = target.getSelected();
-        containerService.startContainers(selectedContainers);
+        containerService.stopContainers(selectedContainers);
         target.getDatasource().refresh();
         target.setSelected(selectedContainers);
     }
 
     @Override
     public String getCaption() {
-        return messages.getMessage(this.getClass(), "startContainers");
+        return messages.getMessage(this.getClass(), "stopContainers");
     }
 }

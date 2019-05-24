@@ -51,4 +51,12 @@ public class ContainerServiceBean implements ContainerService {
             dockerService.exec(dockerClient.startContainerCmd(container.getContainerId()));
         }
     }
+
+    @Override
+    public void stopContainers(Collection<Container> containers) {
+        for (Container container : containers) {
+            DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
+            dockerService.exec(dockerClient.stopContainerCmd(container.getContainerId()));
+        }
+    }
 }

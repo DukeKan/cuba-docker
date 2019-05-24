@@ -1,8 +1,9 @@
 package com.github.dukekan.cubadocker.web.container;
 
 import com.github.dukekan.cubadocker.web.container.actions.StartContainerAction;
+import com.github.dukekan.cubadocker.web.container.actions.StopContainerAction;
 import com.haulmont.cuba.gui.components.AbstractLookup;
-import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.PopupButton;
 import com.haulmont.cuba.gui.components.Table;
 
 import javax.inject.Inject;
@@ -10,9 +11,9 @@ import javax.inject.Inject;
 public class ContainerBrowse extends AbstractLookup {
 
     @Inject
-    private Table<com.github.dukekan.cubadocker.entity.Container> containersTable;
+    protected Table<com.github.dukekan.cubadocker.entity.Container> containersTable;
     @Inject
-    private Button startContainersBtn;
+    protected PopupButton containerActionsBtn;
 
     @Override
     public void ready() {
@@ -20,6 +21,7 @@ public class ContainerBrowse extends AbstractLookup {
     }
 
     protected void initActions() {
-        startContainersBtn.setAction(new StartContainerAction(containersTable, "startContainers"));
+        containerActionsBtn.addAction(new StartContainerAction(containersTable, "startContainers"));
+        containerActionsBtn.addAction(new StopContainerAction(containersTable, "stopContainers"));
     }
 }
