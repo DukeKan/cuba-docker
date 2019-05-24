@@ -25,4 +25,5 @@ reports/*
 modules/*/build/*
 out
 test-run
+*.iml
 deploy/*
