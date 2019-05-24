@@ -2,6 +2,7 @@ package com.github.dukekan.cubadocker.service;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.DockerCmdExecFactory;
+import com.github.dockerjava.api.command.SyncDockerCmd;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
@@ -28,5 +29,12 @@ public class DockerServiceBean implements DockerService {
         return DockerClientBuilder.getInstance(config)
                 .withDockerCmdExecFactory(dockerCmdExecFactory)
                 .build();
+    }
+
+    @Override
+    public <RES_T> RES_T exec(SyncDockerCmd<RES_T> command) {
+        RES_T result = command.exec();
+        command.close();
+        return result;
     }
 }

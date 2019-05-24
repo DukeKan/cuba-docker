@@ -25,6 +25,7 @@ public class StartContainerAction extends ItemTrackingAction {
     public void actionPerform(Component component) {
         Set<Container> selectedContainers = target.getSelected();
         containerService.startContainers(selectedContainers);
+        target.getDatasource().refresh();
     }
 
     @Override

@@ -26,7 +26,8 @@ public class ContainerServiceBean implements ContainerService {
         for (ConnectionParams connection : connections) {
             DockerClient dockerClient = dockerService.createDockerClient(connection);
 
-            List<com.github.dockerjava.api.model.Container> dockerContainers = dockerClient.listContainersCmd().exec();
+            List<com.github.dockerjava.api.model.Container> dockerContainers = dockerService.exec(
+                    dockerClient.listContainersCmd().withShowAll(true));
             for (com.github.dockerjava.api.model.Container dockerContainer : dockerContainers) {
                 Container container = metadata.create(Container.class);
                 container.setStatus(dockerContainer.getStatus());
@@ -47,7 +48,7 @@ public class ContainerServiceBean implements ContainerService {
     public void startContainers(Collection<Container> containers) {
         for (Container container : containers) {
             DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
-            dockerClient.startContainerCmd(container.getContainerId());
+            dockerService.exec(dockerClient.startContainerCmd(container.getContainerId()));
         }
     }
 }
