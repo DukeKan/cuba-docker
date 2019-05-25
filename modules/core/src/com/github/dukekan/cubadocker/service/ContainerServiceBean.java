@@ -1,11 +1,10 @@
 package com.github.dukekan.cubadocker.service;
 
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.InspectContainerCmd;
-import com.github.dockerjava.api.command.LogContainerCmd;
-import com.github.dockerjava.api.command.StatsCmd;
-import com.github.dockerjava.api.command.TopContainerCmd;
+import com.github.dockerjava.api.command.*;
+import com.github.dockerjava.api.model.ExposedPort;
 import com.github.dockerjava.api.model.Frame;
+import com.github.dockerjava.api.model.Ports;
 import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dukekan.cubadocker.entity.ConnectionParams;
 import com.github.dukekan.cubadocker.entity.Container;
@@ -98,9 +97,21 @@ public class ContainerServiceBean implements ContainerService {
     public String inspectContainer(Container container) {
         DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
         InspectContainerCmd inspectContainerCmd = dockerClient.inspectContainerCmd(container.getContainerId());
-        String inspectionResult = inspectContainerCmd.exec().toString();
+        InspectContainerResponse inspectContainerRes = inspectContainerCmd.exec();
+        List<InspectContainerResponse.Mount> mounts = inspectContainerRes.getMounts();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Created: ").append(inspectContainerRes.getCreated());
+        sb.append(System.lineSeparator()).append("Ports:");
+        Ports ports = inspectContainerRes.getNetworkSettings().getPorts();
+        for (ExposedPort port: ports.getBindings().keySet()) {
+            sb.append(System.lineSeparator()).append("      ").append(port.getProtocol() + ":" + port.getPort());
+        }
+        sb.append(System.lineSeparator()).append("Mounts:");
+        for (InspectContainerResponse.Mount mount: mounts) {
+            sb.append(System.lineSeparator()).append("      ").append(mount.getSource());
+        }
         inspectContainerCmd.close();
-        return inspectionResult;
+        return sb.toString();
     }
 
     @Override
@@ -108,9 +119,8 @@ public class ContainerServiceBean implements ContainerService {
         DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
         TopContainerCmd topContainerCmd = dockerClient.topContainerCmd(container.getContainerId());
         StringBuilder sb = new StringBuilder();
-        for (String[] line: topContainerCmd.exec().getProcesses()) {
-            sb.append(String.join(" ", line));
-            sb.append(System.lineSeparator());
+        for (String[] line : topContainerCmd.withPsArgs("-e").exec().getProcesses()) {
+            sb.append("PID: ").append(line[0]).append(" , name: ").append(line[3]).append(System.lineSeparator());
         }
         topContainerCmd.close();
         return sb.toString();
@@ -132,6 +142,11 @@ public class ContainerServiceBean implements ContainerService {
             e.printStackTrace();
         }
 
-        return statslogs.getStatistics().toString();
+        if (statslogs.getStatistics() != null && statslogs.getStatistics().getMemoryStats() != null &&
+                statslogs.getStatistics().getMemoryStats().getUsage() != null) {
+            return "Memory usage: " + statslogs.getStatistics().getMemoryStats().getUsage() / (1024 * 1024) + "MB.";
+        } else {
+            return "No data";
+        }
     }
 }
