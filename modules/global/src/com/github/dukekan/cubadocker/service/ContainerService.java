@@ -14,4 +14,6 @@ public interface ContainerService {
     void startContainers(Collection<Container> containers);
 
     void stopContainers(Collection<Container> containers);
+
+    String getContainerLogs(Container container);
 }

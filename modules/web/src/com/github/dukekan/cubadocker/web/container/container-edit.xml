@@ -10,26 +10,40 @@
                     class="com.github.dukekan.cubadocker.entity.Container"
                     view="_local"/>
     </dsContext>
+    <timers>
+        <timer delay="3000" autostart="true" repeating="true" onTimer="refreshContainerLogs"/>
+    </timers>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
-        <fieldGroup id="fieldGroup"
-                    datasource="containerDs">
-            <column width="250px">
-                <field property="status"/>
-                <field property="state"/>
-                <field property="image"/>
-                <field property="connectionParams"/>
-                <field property="containerId"/>
-                <field property="imageId"/>
-            </column>
-        </fieldGroup>
-        <label value="msg://names"/>
-        <optionsList id="names"
-                     height="75px"
-                     width="350px"/>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+    <layout spacing="true">
+        <vbox expand="upperBox"
+              spacing="true">
+            <hbox id="upperBox"
+                  expand="logsTextArea"
+                  height="237px"
+                  spacing="true"
+                  width="100%">
+                <fieldGroup id="fieldGroup"
+                            datasource="containerDs"
+                            width="400px">
+                    <column width="250px">
+                        <field property="status"/>
+                        <field property="state"/>
+                        <field property="image"/>
+                        <field property="connectionParams"/>
+                        <field property="containerId"/>
+                        <field property="imageId"/>
+                    </column>
+                </fieldGroup>
+                <textArea id="logsTextArea"
+                          height="232px"/>
+            </hbox>
+            <label value="msg://names"/>
+            <optionsList id="names"
+                         height="75px"
+                         width="350px"/>
+            <frame id="windowActions"
+                   screen="editWindowActions"/>
+        </vbox>
     </layout>
 </window>

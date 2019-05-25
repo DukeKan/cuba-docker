@@ -1,6 +1,9 @@
 package com.github.dukekan.cubadocker.service;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.LogContainerCmd;
+import com.github.dockerjava.api.model.Frame;
+import com.github.dockerjava.core.command.LogContainerResultCallback;
 import com.github.dukekan.cubadocker.entity.ConnectionParams;
 import com.github.dukekan.cubadocker.entity.Container;
 import com.haulmont.cuba.core.global.Metadata;
@@ -58,5 +61,29 @@ public class ContainerServiceBean implements ContainerService {
             DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
             dockerService.exec(dockerClient.stopContainerCmd(container.getContainerId()));
         }
+    }
+
+    @Override
+    public String getContainerLogs(Container container) {
+        DockerClient dockerClient = dockerService.createDockerClient(container.getConnectionParams());
+        LogContainerCmd logContainerCmd = dockerClient.logContainerCmd(container.getContainerId()).withTail(500);
+
+        final List<String> logs = new ArrayList<>();
+
+        logContainerCmd.withStdOut(true).withStdErr(true);
+        try {
+            logContainerCmd.exec(new LogContainerResultCallback() {
+                @Override
+                public void onNext(Frame item) {
+                    logs.add(item.toString());
+                }
+            }).awaitCompletion();
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Failed to retrieve logs of container " + logContainerCmd.getContainerId(), e);
+        }
+
+        logContainerCmd.close();
+
+        return String.join(System.lineSeparator(), logs);
     }
 }
