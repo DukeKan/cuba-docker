@@ -2,7 +2,6 @@ package com.github.dukekan.cubadocker.web.container;
 
 import com.github.dukekan.cubadocker.entity.Container;
 import com.github.dukekan.cubadocker.service.ContainerService;
-import com.github.dukekan.cubadocker.service.DockerService;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.haulmont.cuba.gui.components.OptionsList;
 import com.haulmont.cuba.gui.components.ResizableTextArea;
@@ -16,14 +15,39 @@ public class ContainerEdit extends AbstractEditor<Container> {
     @Inject
     protected ResizableTextArea logsTextArea;
     @Inject
-    protected ContainerService containerService;
+    private ResizableTextArea containerInfoTextArea;
     @Inject
-    protected DockerService dockerService;
+    private ResizableTextArea topTextArea;
+    @Inject
+    private ResizableTextArea statsTextArea;
+    @Inject
+    protected ContainerService containerService;
 
     @Override
     protected void postInit() {
         initNamesOptionList();
         initLogsTextArea();
+        initContainerInfoTextArea();
+        initContainerTopProcessesTextArea();
+        initStatsTextArea();
+    }
+
+    protected void initStatsTextArea() {
+        if (getItem().getConnectionParams() != null && getItem().getContainerId() != null) {
+            statsTextArea.setValue(containerService.getContainerStats(getItem()));
+        }
+    }
+
+    protected void initContainerTopProcessesTextArea() {
+        if (getItem().getConnectionParams() != null && getItem().getContainerId() != null) {
+            topTextArea.setValue(containerService.topContainerProcesses(getItem()));
+        }
+    }
+
+    protected void initContainerInfoTextArea() {
+        if (getItem().getConnectionParams() != null && getItem().getContainerId() != null) {
+            containerInfoTextArea.setValue(containerService.inspectContainer(getItem()));
+        }
     }
 
     protected void initLogsTextArea() {
@@ -37,8 +61,9 @@ public class ContainerEdit extends AbstractEditor<Container> {
         names.setOptionsList(getItem().getNamesList());
     }
 
-
     public void refreshContainerLogs(Timer source) {
         initLogsTextArea();
+        initContainerTopProcessesTextArea();
+        initStatsTextArea();
     }
 }

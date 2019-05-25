@@ -11,7 +11,10 @@
                     view="_local"/>
     </dsContext>
     <timers>
-        <timer delay="3000" autostart="true" repeating="true" onTimer="refreshContainerLogs"/>
+        <timer autostart="true"
+               delay="3000"
+               onTimer="refreshContainerLogs"
+               repeating="true"/>
     </timers>
     <dialogMode height="600"
                 width="800"/>
@@ -26,7 +29,7 @@
                 <fieldGroup id="fieldGroup"
                             datasource="containerDs"
                             width="400px">
-                    <column width="250px">
+                    <column width="100%">
                         <field property="status"/>
                         <field property="state"/>
                         <field property="image"/>
@@ -38,12 +41,46 @@
                 <textArea id="logsTextArea"
                           height="232px"/>
             </hbox>
-            <label value="msg://names"/>
-            <optionsList id="names"
-                         height="75px"
-                         width="350px"/>
             <frame id="windowActions"
                    screen="editWindowActions"/>
+            <hbox id="middleBox"
+                  expand="containerInfoBvox"
+                  spacing="true"
+                  width="100%">
+                <vbox spacing="true"
+                      width="AUTO">
+                    <label value="msg://names"/>
+                    <optionsList id="names"
+                                 height="120px"
+                                 width="400px"/>
+                </vbox>
+                <vbox id="containerInfoBvox"
+                      expand="containerInfoTextArea"
+                      spacing="true">
+                    <label value="msg://containerInfo"/>
+                    <textArea id="containerInfoTextArea"
+                              height="75px"
+                              width="100%"/>
+                </vbox>
+            </hbox>
+            <hbox id="downBox"
+                  expand="statsVBox"
+                  spacing="true"
+                  width="100%">
+                <vbox id="topVBox"
+                      spacing="true"
+                      width="AUTO">
+                    <label value="msg://containerTopProcesses"/>
+                    <textArea id="topTextArea"
+                              width="400px"/>
+                </vbox>
+                <vbox id="statsVBox"
+                      spacing="true">
+                    <label value="msg://containerStats"/>
+                    <textArea id="statsTextArea"
+                              width="100%"/>
+                </vbox>
+            </hbox>
         </vbox>
     </layout>
 </window>

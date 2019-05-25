@@ -16,4 +16,10 @@ public interface ContainerService {
     void stopContainers(Collection<Container> containers);
 
     String getContainerLogs(Container container);
+
+    String inspectContainer(Container container);
+
+    String topContainerProcesses(Container container);
+
+    String getContainerStats(Container container);
 }
