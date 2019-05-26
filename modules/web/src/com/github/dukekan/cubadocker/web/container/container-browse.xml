@@ -17,13 +17,7 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="containersTable"
-            spacing="true">
-        <filter id="filter"
-                applyTo="containersTable"
-                datasource="containersDs">
-            <properties include=".*"/>
-        </filter>
+    <layout expand="containersTable">
         <table id="containersTable"
                multiselect="true"
                width="100%">
