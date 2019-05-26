@@ -28,8 +28,6 @@ public class ContainerEdit extends AbstractEditor<Container> {
         initNamesOptionList();
         initLogsTextArea();
         initContainerInfoTextArea();
-        initContainerTopProcessesTextArea();
-        initStatsTextArea();
     }
 
     protected void initStatsTextArea() {
@@ -63,7 +61,13 @@ public class ContainerEdit extends AbstractEditor<Container> {
 
     public void refreshContainerLogs(Timer source) {
         initLogsTextArea();
+    }
+
+    public void refreshTopProcesses() {
         initContainerTopProcessesTextArea();
+    }
+
+    public void refreshStatistics() {
         initStatsTextArea();
     }
 }

@@ -19,6 +19,7 @@
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true">
+        <scrollBox height="100%">
         <vbox expand="upperBox"
               spacing="true">
             <hbox id="upperBox"
@@ -41,8 +42,6 @@
                 <textArea id="logsTextArea"
                           height="232px"/>
             </hbox>
-            <frame id="windowActions"
-                   screen="editWindowActions"/>
             <hbox id="middleBox"
                   expand="containerInfoBvox"
                   spacing="true"
@@ -70,17 +69,26 @@
                 <vbox id="topVBox"
                       spacing="true"
                       width="AUTO">
-                    <label value="msg://containerTopProcesses"/>
+                    <hbox spacing="true">
+                        <label align="MIDDLE_LEFT" value="msg://containerTopProcesses"/>
+                        <button caption="msg://refresh" invoke="refreshTopProcesses"/>
+                    </hbox>
                     <textArea id="topTextArea"
                               width="400px"/>
                 </vbox>
                 <vbox id="statsVBox"
                       spacing="true">
-                    <label value="msg://containerStats"/>
+                    <hbox spacing="true">
+                        <label align="MIDDLE_LEFT" value="msg://containerStats"/>
+                        <button caption="msg://refresh" invoke="refreshStatistics"/>
+                    </hbox>
                     <textArea id="statsTextArea"
                               width="100%"/>
                 </vbox>
             </hbox>
         </vbox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+        </scrollBox>
     </layout>
 </window>
