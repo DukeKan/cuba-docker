@@ -16,6 +16,8 @@
                        value="com.github.dukekan.cubadocker.service.ContainerService"/>
                 <entry key="cubadocker_EntityService"
                        value="com.github.dukekan.cubadocker.service.EntityService"/>
+                <entry key="cubadocker_YouTrackServicee"
+                       value="com.github.dukekan.cubadocker.service.YouTrackService"/>
             </map>
         </property>
     </bean>

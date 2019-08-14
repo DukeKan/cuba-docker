@@ -1,0 +1,15 @@
+@import "halo-defaults";
+@import "com.github.dukekan.cubadocker/halo-ext-defaults";
+@import "app-components";
+@import "com.github.dukekan.cubadocker/halo-ext";
+
+.halo {
+  // include auto-generated app components SCSS
+  @include app_components;
+
+  @include com_github_dukekan_cubadocker-halo-ext;
+
+  .red-row {
+      background-color: rgb(227, 156, 157);
+  }
+}
