@@ -1,53 +1,31 @@
 package com.github.dukekan.cubadocker.core;
 
 import com.github.dukekan.cubadocker.CubadockerTestContainer;
-import com.haulmont.cuba.core.EntityManager;
-import com.haulmont.cuba.core.Persistence;
-import com.haulmont.cuba.core.Transaction;
-import com.haulmont.cuba.core.TypedQuery;
+import com.github.dukekan.cubadocker.service.YouTrackService;
 import com.haulmont.cuba.core.global.AppBeans;
-import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.Metadata;
-import com.haulmont.cuba.security.entity.User;
-import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class SampleIntegrationTest {
 
     @ClassRule
     public static CubadockerTestContainer cont = CubadockerTestContainer.Common.INSTANCE;
 
-    private Metadata metadata;
-    private Persistence persistence;
-    private DataManager dataManager;
+    private YouTrackService youTrackService;
 
     @Before
     public void setUp() throws Exception {
-        metadata = cont.metadata();
-        persistence = cont.persistence();
-        dataManager = AppBeans.get(DataManager.class);
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        youTrackService = AppBeans.get(YouTrackService.class);
     }
 
     @Test
-    public void testLoadUser() {
-        try (Transaction tx = persistence.createTransaction()) {
-            EntityManager em = persistence.getEntityManager();
-            TypedQuery<User> query = em.createQuery(
-                    "select u from sec$User u where u.login = :userLogin", User.class);
-            query.setParameter("userLogin", "admin");
-            List<User> users = query.getResultList();
-            tx.commit();
-            assertEquals(1, users.size());
-        }
+    public void testLoadUser() throws IOException {
+        List<String> verifiedIssueNumbers = youTrackService.getVerifiedIssueNumbers();
+        Assert.assertTrue(verifiedIssueNumbers.size() > 0);
     }
 }
